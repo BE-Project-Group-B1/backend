@@ -1,0 +1,8 @@
+__pycache__
+received.wav
+audiodb/*
+devenv.py
+*/__pycache__
+audio_cache/
+/dist/
+pretrained_models
