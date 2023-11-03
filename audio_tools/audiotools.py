@@ -3,12 +3,14 @@ import os
 from pydub import AudioSegment
 from speechbrain.pretrained import SpeakerRecognition
 from speechbrain.pretrained import SepformerSeparation as separator
+from transformers import pipeline
 import torchaudio
 class AudioTools:
     def __init__(self):
         self.verification = SpeakerRecognition.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb", savedir="pretrained_models/spkrec-ecapa-voxceleb")
         self.separator = separator.from_hparams(source="speechbrain/sepformer-wsj02mix", savedir='pretrained_models/sepformer-wsj02mix')
         self.sr = sr.Recognizer()
+        self.summarizer=pipeline("summarization", model="facebook/bart-large-cnn")
 
     def transcript(self,filePath="received.wav"):   
 
@@ -35,3 +37,7 @@ class AudioTools:
                 break  
         print(res)
         return res
+    def summarize(self,text):
+        maxl=len(text.split())//1.5
+        summ=self.summarizer(text, max_length=60, min_length=30, do_sample=False)[0]['summary_text']
+        return summ

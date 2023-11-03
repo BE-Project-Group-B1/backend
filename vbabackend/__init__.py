@@ -12,8 +12,6 @@ from utils import hashing
 db=users.Users()
 at=audiotools.AudioTools()
 cwd=os.getcwd()
-os.chdir(cwd+"/audiodb/")
-at.separate()
 app = Flask(__name__)
 
 CORS(app)
@@ -128,7 +126,8 @@ def transcript():
         )
         data = fio.getvalue()
     recd=at.transcript()
-    response = jsonify(recd)
+    summ=at.summarize(recd)
+    response = jsonify([summ,recd])
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 

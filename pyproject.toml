@@ -17,6 +17,7 @@ pydub = "^0.25.1"
 pymongo = "^4.3.3"
 flask = "^2.2.3"
 flask-cors = "^3.0.10"
+transformers = "^4.35.0"
 
 
 [build-system]
